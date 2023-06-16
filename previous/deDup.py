@@ -7,4 +7,7 @@ def findDup(lst=[]):
             return True
     return False
 
-findDup([1,2,3,1])
+
+findDup([1, 2, 3, 1])
+
+# code that identifies duplicate numbers from a list
