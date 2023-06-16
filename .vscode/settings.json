@@ -1,8 +1,0 @@
-{
-    "vsintellicode.features.python.deepLearning": "enabled",
-    "python.linting.enabled": false,
-    "editor.defaultFormatter": "VisualStudioExptTeam.vscodeintellicode",
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter"
-    }
-}
