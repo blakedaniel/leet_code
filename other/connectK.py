@@ -27,9 +27,17 @@ class board:
             possible_columns.append(board[loc + col])
             
         for row in zip(*possible_columns):
-            player_count = Counter(row)
-            if player_count[player] >= win_leng:
-                return player
+            player_count = {}
+            curr_player = None
+            for player in row:
+                
+                if curr_player != player:
+                    curr_player = player
+                    player_count[player] = 0
+                
+                player_count[player] += 1
+                if player_count[player] == win_leng:
+                    return player
         return None
         
     def move(self, player:str, loc:int):
