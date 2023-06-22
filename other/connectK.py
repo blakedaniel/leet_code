@@ -9,8 +9,10 @@ class board:
     def _checkVertWin(self, player: str, loc: int):
         column = self.board[loc]
         win_leng = self.win_leng
+        
         if len(column) > win_leng:
             return None
+        
         for prev_player in column[len(column) - win_leng:]:
             if prev_player != player:
                 return None
@@ -20,6 +22,7 @@ class board:
         board = self.board
         win_leng = self.win_leng
         possible_columns = []
+        
         for col in range(-(win_leng - 1), win_leng):
             possible_columns.append(board[loc + col])
             
