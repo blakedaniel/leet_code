@@ -1,5 +1,5 @@
 from collections import defaultdict
-from collections import Counter
+from itertools import zip_longest
 
 class board:
     def __init__(self, k) -> None:
@@ -13,7 +13,7 @@ class board:
         if len(column) > win_leng:
             return None
         
-        for prev_player in column[len(column) - win_leng:]:
+        for prev_player in column[:win_leng]:
             if prev_player != player:
                 return None
         return player
@@ -21,48 +21,32 @@ class board:
     def _checkHorWin(self, player: str, loc: int):
         board = self.board
         win_leng = self.win_leng
+        win_cases = {}
         possible_columns = []
         
+        for player in ('red', 'blue'):
+            win_cases[player] = (player for player in range(win_leng))
+            
         for col in range(-(win_leng - 1), win_leng):
             possible_columns.append(board[loc + col])
-        
-        left_index = 0
-        final_index = len(possible_columns) - 1
-        right_index = min(win_leng - 1, final_index)
-        
-        while right_index <= final_index:
-            curr_columns = possible_columns[left_index:right_index + 1]
             
-            for row in zip(*curr_columns):
-                player_count = {'blue': 0, 'red': 0}
-                curr_player = 'blue'
-                
-                for player in row:
-                    
-                    if curr_player != player:
-                        curr_player = player
-                        player_count[player] = 0
-                    
-                    player_count[player] += 1
-                    player1, player2 = player_count.keys()
-                    player1_win = player_count[player1] == win_leng
-                    player2_win = player_count[player2] == win_leng
-                    tie = (player1_win and player2_win)
-                    
-                    if tie:
-                        return player1, player2
-                    elif player1_win:
-                        return player1
-                    elif player2_win:
-                        return player2
-
-            left_index += 1
-            right_index += 1
+        for row in zip_longest(*possible_columns):
+            
+            blue_win = win_cases['blue'] in row
+            red_win = win_cases['red'] in row
+            tie = blue_win and red_win
+            
+            if tie:
+                return 'blue', 'red'
+            elif blue_win:
+                return 'blue'
+            elif red_win:
+                return 'red'
         return None
         
     def move(self, player:str, loc:int):
         column = self.board[loc]
-        column.append(player)
+        column.insert(0, player)
         
         vertical_win = self._checkVertWin(player, loc)
         if vertical_win:
