@@ -34,8 +34,8 @@ class board:
             curr_columns = possible_columns[left_index:right_index + 1]
             
             for row in zip(*curr_columns):
-                player_count = {}
-                curr_player = None
+                player_count = {'blue': 0, 'red': 0}
+                curr_player = 'blue'
                 
                 for player in row:
                     
