@@ -5,6 +5,7 @@ class board:
     def __init__(self, k) -> None:
         self.board = defaultdict(list)
         self.win_leng = k
+        self.players = ('red', 'blue')
         
     def _checkVertWin(self, player: str, loc: int):
         column = self.board[loc]
@@ -21,10 +22,11 @@ class board:
     def _checkHorWin(self, player: str, loc: int):
         board = self.board
         win_leng = self.win_leng
+        players = self.players
         win_cases = {}
         possible_columns = []
         
-        for player in ('red', 'blue'):
+        for player in players:
             win_cases[player] = (player for player in range(win_leng))
             
         for col in range(-(win_leng - 1), win_leng):
@@ -32,16 +34,17 @@ class board:
             
         for row in zip_longest(*possible_columns):
             
-            blue_win = win_cases['blue'] in row
-            red_win = win_cases['red'] in row
-            tie = blue_win and red_win
+            player1, player2 = players
+            player1_win = win_cases[player1] in row
+            player2_win = win_cases[player2] in row
+            tie = player1_win and player2_win
             
             if tie:
-                return 'blue', 'red'
-            elif blue_win:
-                return 'blue'
-            elif red_win:
-                return 'red'
+                return player1, player2
+            elif player1_win:
+                return player1
+            elif player2_win:
+                return player2
         return None
         
     def move(self, player:str, loc:int):
