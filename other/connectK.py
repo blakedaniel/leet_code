@@ -36,6 +36,9 @@ class board:
                     player_count[player] = 0
                 
                 player_count[player] += 1
+                # TODO: update based on Ethan feedback, but what if player placement
+                # causes opponent to win or both to win? Current funciton only checks
+                # for current player winning
                 if player_count[player] == win_leng:
                     return player
         return None
