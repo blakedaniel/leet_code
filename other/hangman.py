@@ -11,7 +11,6 @@ class Hangman():
         print('YOUR WORD:\n',''.join(self.guessed))
         print('~'* 50)
         
-        
     def guess(self, string:str):
         if len(string) != 1:
             string = list(string)
