@@ -18,6 +18,10 @@ class Hangman():
                 return False
             self.guessed = string
             return True
+
+        if string not in self.rem_chars:
+            print('You already guessed that!')
+            return True
         
         self.rem_chars.remove(string)
         for idx, char in enumerate(self.word):
