@@ -168,5 +168,4 @@ class HeightMap:
         if len(basin) > 1:
             basins.append(basin)
         
-        self.basins = basins
-        return basins     
+        self.basins = basins 
